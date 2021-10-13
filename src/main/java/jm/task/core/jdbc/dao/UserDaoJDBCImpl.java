@@ -16,7 +16,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void createUsersTable() {
-        String query = "CREATE TABLE user (" +
+        String query = "CREATE TABLE IF NOT EXISTS user (" +
                 "  id INT NOT NULL AUTO_INCREMENT," +
                 "  name VARCHAR(45) NOT NULL," +
                 "  lastname VARCHAR(45) NOT NULL," +
@@ -28,7 +28,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
         } catch (SQLException e) {
             System.out.println("Table creation failed! Table already exist!");
-          //  e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
