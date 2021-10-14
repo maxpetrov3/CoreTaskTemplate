@@ -11,8 +11,9 @@ import java.util.List;
 public class UserDaoJDBCImpl implements UserDao {
     private Connection connection;
 
+
     public UserDaoJDBCImpl() {
-        connection = Util.getConnection();
+        connection = Util.getJDBCConnection();
     }
 
     public void createUsersTable() {
@@ -35,7 +36,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void dropUsersTable() {
         try {
             PreparedStatement dropTable = connection.prepareStatement(
-                    "DROP TABLE user");
+                    "DROP TABLE IF EXISTS user");
             dropTable.execute();
 
         } catch (SQLException e) {

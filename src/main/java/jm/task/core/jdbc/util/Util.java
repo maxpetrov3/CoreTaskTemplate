@@ -3,13 +3,9 @@ package jm.task.core.jdbc.util;
 import jm.task.core.jdbc.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.boot.registry.internal.BootstrapServiceRegistryImpl;
-import org.hibernate.boot.registry.internal.StandardServiceRegistryImpl;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -22,7 +18,7 @@ public class Util {
     private static final String password = "admin";
     private static final String schema = "mentor";
 
-    public static Connection getConnection() {
+    public static Connection getJDBCConnection() {
         String url = host + port + "/" + schema;
         Connection connection = null;
         try {
@@ -49,11 +45,10 @@ public class Util {
             ServiceRegistry sr = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
             SessionFactory sessionFactory = config.buildSessionFactory(sr);
             session = sessionFactory.openSession();
-            session.beginTransaction();
 
-        } catch (Exception e ) {
+        } catch (Exception e) {
             System.out.println("Hibernate. Connection failed!");
-           // e.printStackTrace();
+            // e.printStackTrace();
         }
 
         return session;
